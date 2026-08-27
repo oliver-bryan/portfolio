@@ -52,53 +52,63 @@ const projects: Project[] = [
 
 export default function ProjectsPage() {
   return (
-    <section className="page">
+    <section className="shell page">
       <h1>Projects</h1>
 
       <ol className="mt-[var(--space-2xl)]">
-        {projects.map((project) => (
-          <li
-            key={project.slug}
-            className="border-[var(--border)] pt-[var(--space-xl)] [&+li]:mt-[var(--space-xl)] [&+li]:border-t"
-          >
-            <article className="max-w-[var(--measure)]">
-              <h2>{project.title}</h2>
-              <p className="mt-[var(--space-2xs)] text-[length:var(--text-lg)] leading-[var(--leading-snug)]">
-                <strong>{project.tagline}</strong>
-              </p>
-
-              <h3 className="mt-[var(--space-m)] text-[length:var(--text-xs)] font-semibold text-[var(--muted)]">
-                Built with
-              </h3>
-              <ul className="mt-[var(--space-2xs)] flex flex-wrap gap-x-[var(--space-s)] gap-y-[var(--space-2xs)] text-[length:var(--text-sm)] text-[var(--muted)]">
-                {project.stack.map((tech) => (
-                  <li key={tech}>{tech}</li>
-                ))}
-              </ul>
-
-              {project.body.map((paragraph) => (
-                <p
-                  key={paragraph.slice(0, 32)}
-                  className="mt-[var(--space-m)]"
-                >
-                  {paragraph}
+        {projects.map((project) => {
+          const body = (
+            <article className="grid gap-[var(--space-m)] md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-[var(--space-xl)]">
+              <div>
+                <h2 className="entry-title">{project.title}</h2>
+                <p className="mt-[var(--space-s)] text-[length:var(--text-md)] leading-[var(--leading-snug)] text-[var(--muted)]">
+                  {project.tagline}
                 </p>
-              ))}
+              </div>
 
-              {project.href ? (
-                <p className="mt-[var(--space-m)]">
-                  <Link
-                    href={project.href}
-                    className="text-[var(--primary)] hover:text-[var(--primary-hover)]"
+              <div>
+                {project.body.map((paragraph) => (
+                  <p
+                    key={paragraph.slice(0, 32)}
+                    className="max-w-[var(--measure)] not-first:mt-[var(--space-m)]"
                   >
-                    Read the full case study{" "}
-                    <span aria-hidden="true">&rarr;</span>
-                  </Link>
-                </p>
-              ) : null}
+                    {paragraph}
+                  </p>
+                ))}
+
+                <h3 className="mt-[var(--space-l)] text-[length:var(--text-xs)] font-semibold tracking-[var(--tracking-wide)] text-[var(--muted)]">
+                  Built with
+                </h3>
+                <ul className="mt-[var(--space-2xs)] flex flex-wrap gap-x-[var(--space-s)] gap-y-[var(--space-2xs)] text-[length:var(--text-sm)] text-[var(--muted)]">
+                  {project.stack.map((tech) => (
+                    <li key={tech}>{tech}</li>
+                  ))}
+                </ul>
+
+                {project.href ? (
+                  <p className="mt-[var(--space-l)]">
+                    <span className="entry-more">
+                      Read the full case study{" "}
+                      <span aria-hidden="true">&rarr;</span>
+                    </span>
+                  </p>
+                ) : null}
+              </div>
             </article>
-          </li>
-        ))}
+          );
+
+          return (
+            <li key={project.slug} className="entry">
+              {project.href ? (
+                <Link href={project.href} className="entry-link">
+                  {body}
+                </Link>
+              ) : (
+                body
+              )}
+            </li>
+          );
+        })}
       </ol>
     </section>
   );

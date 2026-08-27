@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function PhotographyPage() {
   return (
-    <section className="page wide">
+    <section className="shell page">
       <h1>Photography</h1>
 
       {/*

@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
-import { Literata } from "next/font/google";
+import { Bricolage_Grotesque, Literata } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
 import "./globals.css";
 
-// One family, used at 400 and 600. Literata is a reading face: the case study
-// is long-form prose and the type has to hold up at paragraph length, not just
-// in headings.
+// Display and UI. Variable, with an optical-size axis, so it holds up at the
+// hero's ~200px as well as at nav size.
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+// Reading face, used only for the case study's prose column.
 const literata = Literata({
   variable: "--font-literata",
   subsets: ["latin"],
@@ -31,7 +37,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${literata.variable} h-full antialiased`}
+      className={`${bricolage.variable} ${literata.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <Providers>

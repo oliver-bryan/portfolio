@@ -96,7 +96,7 @@ function Figure({ src, width, height, alt, caption }: Screenshot) {
 
 export default function PackPalsPage() {
   return (
-    <article className="page longform">
+    <article className="shell page longform">
       <header>
         <h1>PackPals</h1>
         <p className="text-[length:var(--text-lg)] leading-[var(--leading-snug)]">
@@ -364,7 +364,7 @@ export default function PackPalsPage() {
       </section>
 
       <footer className="mt-[var(--space-2xl)] border-t border-[var(--border)] pt-[var(--space-l)]">
-        <p className="text-[var(--primary)]">
+        <p className="text-[var(--accent-strong)]">
           <Link href="/projects">
             <span aria-hidden="true">&larr;</span> All projects
           </Link>
