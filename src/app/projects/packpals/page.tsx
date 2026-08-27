@@ -2,10 +2,29 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+const description =
+  "A crowd-support platform for students moving between states. Sole designer and developer, Final Year Project at UiTM Shah Alam.";
+
 export const metadata: Metadata = {
   title: "PackPals",
-  description:
-    "A crowd-support platform for students moving between states. Sole designer and developer, Final Year Project at UiTM Shah Alam.",
+  description,
+  alternates: { canonical: "/projects/packpals" },
+  openGraph: {
+    // A case study is an article, not a site section.
+    type: "article",
+    title: "PackPals · Oliver Bryan",
+    description,
+    url: "/projects/packpals",
+    // opengraph-image.tsx only covers its own segment, so nested routes have to
+    // point at it explicitly or they ship with no card image at all.
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "PackPals · Oliver Bryan",
+    description,
+    images: ["/opengraph-image"],
+  },
 };
 
 /**

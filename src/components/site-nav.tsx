@@ -7,7 +7,6 @@ import { ThemeToggle } from "@/components/theme-toggle";
 const links = [
   { href: "/", label: "Home" },
   { href: "/projects", label: "Projects" },
-  { href: "/photography", label: "Photography" },
 ] as const;
 
 export function SiteNav() {

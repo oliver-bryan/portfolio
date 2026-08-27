@@ -17,9 +17,6 @@ export function SiteFooter() {
               <Link href="/projects">Projects</Link>
             </li>
             <li>
-              <Link href="/photography">Photography</Link>
-            </li>
-            <li>
               <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
             </li>
             {elsewhere.map(({ href, label }) => (

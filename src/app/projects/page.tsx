@@ -2,10 +2,28 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { projects } from "@/lib/projects";
 
+const description =
+  "A mobile relocation platform, a crop-planning dashboard and a hospital asset tracker.";
+
 export const metadata: Metadata = {
   title: "Projects",
-  description:
-    "A mobile relocation platform, a crop-planning dashboard and a hospital asset tracker.",
+  description,
+  alternates: { canonical: "/projects" },
+  openGraph: {
+    type: "website",
+    title: "Projects · Oliver Bryan",
+    description,
+    url: "/projects",
+    // opengraph-image.tsx only covers its own segment, so nested routes have to
+    // point at it explicitly or they ship with no card image at all.
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Projects · Oliver Bryan",
+    description,
+    images: ["/opengraph-image"],
+  },
 };
 
 export default function ProjectsPage() {

@@ -1,17 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { featuredProject, otherProjects } from "@/lib/projects";
-
-type DatePoint = { iso: string; label: string };
-
-/**
- * Internship availability, taken from the CV. Set to `null` to hide the
- * element entirely.
- */
-const AVAILABILITY: { start: DatePoint; end: DatePoint } | null = {
-  start: { iso: "2026-09-07", label: "7 September" },
-  end: { iso: "2026-12-11", label: "11 December 2026" },
-};
+import { availability, site } from "@/lib/site";
 
 /** The match-quality screen: the one shot that shows what PackPals actually does. */
 const FEATURED_SHOT = {
@@ -26,34 +16,49 @@ export default function HomePage() {
     <>
       <section className="hero shell">
         <div>
-          <h1 className="hero-name">Oliver Bryan</h1>
+          <h1 className="hero-name">{site.name}</h1>
 
-          {/* Placeholder-free but plain: rewrite this line in your own voice. */}
-          <p className="mt-[var(--space-m)] max-w-[38ch] text-[length:var(--text-lg)] leading-[var(--leading-snug)] text-[var(--muted)]">
-            I build mobile and web applications, from Flutter clients to
-            server-rendered Java systems.
+          <p className="mt-[var(--space-m)] max-w-[26ch] text-[length:var(--text-xl)] leading-[var(--leading-tight)] tracking-[var(--tracking-tight)] font-semibold text-balance">
+            {site.headline}
+          </p>
+
+          <p className="mt-[var(--space-s)] max-w-[54ch] text-[length:var(--text-base)] leading-[var(--leading-snug)] text-[var(--muted)]">
+            {site.standfirst}
           </p>
         </div>
 
         <div className="flex flex-col gap-[var(--space-s)]">
-          {AVAILABILITY ? (
-            <p className="flex items-center gap-[var(--space-xs)] text-[length:var(--text-sm)]">
-              <span
-                aria-hidden="true"
-                className="size-[0.5rem] shrink-0 rounded-full bg-[var(--accent)]"
-              />
-              <span>
-                Available for an internship,{" "}
-                <time dateTime={AVAILABILITY.start.iso}>
-                  {AVAILABILITY.start.label}
-                </time>{" "}
-                to{" "}
-                <time dateTime={AVAILABILITY.end.iso}>
-                  {AVAILABILITY.end.label}
-                </time>
-              </span>
-            </p>
-          ) : null}
+          <div className="flex flex-wrap items-center gap-x-[var(--space-l)] gap-y-[var(--space-xs)] text-[length:var(--text-sm)]">
+            {availability ? (
+              <p className="flex items-center gap-[var(--space-xs)]">
+                <span
+                  aria-hidden="true"
+                  className="size-[0.5rem] shrink-0 rounded-full bg-[var(--accent)]"
+                />
+                <span>
+                  Available for an internship,{" "}
+                  <time dateTime={availability.start.iso}>
+                    {availability.start.label}
+                  </time>{" "}
+                  to{" "}
+                  <time dateTime={availability.end.iso}>
+                    {availability.end.label}
+                  </time>
+                </span>
+              </p>
+            ) : null}
+
+            {/* Secondary to the availability line: same row, muted, no accent.
+                Opens the PDF in a new tab rather than downloading it. */}
+            <a
+              href={site.cv}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--muted)] transition-colors hover:text-[var(--ink)]"
+            >
+              View CV <span aria-hidden="true">(PDF)</span>
+            </a>
+          </div>
 
           <hr className="rule" />
         </div>
