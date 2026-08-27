@@ -59,8 +59,9 @@
   --text-2xl: clamp(2.25rem, 3.4vw + 1.2rem, 3.75rem);
   --text-3xl: clamp(2.75rem, 5.5vw + 1rem, 5rem);
   /* Homepage name. Sized in vw so it tracks the viewport rather than a
-     breakpoint, with clamps so it stays sane at the extremes. */
-  --text-display: clamp(3.25rem, 14vw, 15rem);
+     breakpoint, with clamps so it stays sane at the extremes. The max is what
+     keeps the name clear of the right edge once the shell stops growing. */
+  --text-display: clamp(3.25rem, 14vw, 11rem);
 
   --leading-display: 0.9;
   --leading-tight: 1.05;
