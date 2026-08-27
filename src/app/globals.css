@@ -429,3 +429,91 @@ a.entry-link:hover .entry-more {
   border: 0;
   border-block-start: 1px solid var(--border);
 }
+
+/* ---------------------------------------------------------------------------
+   Preloader
+
+   Hidden by default so a page without JavaScript never traps behind it. The
+   boot script in the hero opts in by putting `.preloading` on <html> before
+   first paint, and only when sessionStorage says this is the first load and
+   the visitor has not asked for reduced motion. GSAP removes the class when
+   the intro finishes; the boot script carries a timeout failsafe in case the
+   app bundle never runs.
+   --------------------------------------------------------------------------- */
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: none;
+  flex-direction: column;
+  background: var(--bg);
+  padding: var(--gutter);
+}
+
+html.preloading .preloader {
+  display: flex;
+}
+
+html.preloading body {
+  overflow: hidden;
+}
+
+.preloader-line {
+  margin-block: auto;
+  max-width: 22ch;
+  font-size: var(--text-xl);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+  /* The reveal tween owns visibility; hidden until it starts. */
+  visibility: hidden;
+}
+
+.preloader-count {
+  align-self: flex-end;
+  font-size: var(--text-display);
+  font-weight: 600;
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------------------
+   Marquee
+
+   The track holds two identical halves; GSAP loops it from 0 to -50% so the
+   seam lands on identical content. No CSS keyframes: movement exists only
+   when the tween does, which is how reduced motion gets a static strip.
+   --------------------------------------------------------------------------- */
+
+.marquee {
+  overflow: hidden;
+  border-block: 1px solid var(--border);
+  padding-block: var(--space-s);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+}
+
+.marquee-seg {
+  display: flex;
+  align-items: center;
+  gap: var(--space-l);
+  padding-inline-end: var(--space-l);
+  white-space: nowrap;
+  font-size: var(--text-lg);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+}
+
+.marquee-dot {
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--accent);
+}

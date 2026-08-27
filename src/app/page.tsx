@@ -1,7 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import { HomeHero } from "@/components/home-hero";
+import { Marquee } from "@/components/marquee";
+import { INTRO_BOOT_SCRIPT } from "@/lib/intro";
 import { featuredProject, otherProjects } from "@/lib/projects";
-import { availability, site } from "@/lib/site";
+import { site } from "@/lib/site";
 
 /** The match-quality screen: the one shot that shows what PackPals actually does. */
 const FEATURED_SHOT = {
@@ -14,55 +17,20 @@ const FEATURED_SHOT = {
 export default function HomePage() {
   return (
     <>
-      <section className="hero shell">
-        <div>
-          <h1 className="hero-name">{site.name}</h1>
+      {/* Raw HTML rather than a JSX <script>: the browser executes it while
+          parsing the served document (before the hero below exists), and on
+          client-side navigations innerHTML insertion leaves it inert — which
+          is the once-per-load behavior the preloader needs. */}
+      <div
+        hidden
+        dangerouslySetInnerHTML={{
+          __html: `<script>${INTRO_BOOT_SCRIPT}</script>`,
+        }}
+      />
 
-          <p className="mt-[var(--space-m)] max-w-[26ch] text-[length:var(--text-xl)] leading-[var(--leading-tight)] tracking-[var(--tracking-tight)] font-semibold text-balance">
-            {site.headline}
-          </p>
+      <HomeHero />
 
-          <p className="mt-[var(--space-s)] max-w-[54ch] text-[length:var(--text-base)] leading-[var(--leading-snug)] text-[var(--muted)]">
-            {site.standfirst}
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-[var(--space-s)]">
-          <div className="flex flex-wrap items-center gap-x-[var(--space-l)] gap-y-[var(--space-xs)] text-[length:var(--text-sm)]">
-            {availability ? (
-              <p className="flex items-center gap-[var(--space-xs)]">
-                <span
-                  aria-hidden="true"
-                  className="size-[0.5rem] shrink-0 rounded-full bg-[var(--accent)]"
-                />
-                <span>
-                  Available for an internship,{" "}
-                  <time dateTime={availability.start.iso}>
-                    {availability.start.label}
-                  </time>{" "}
-                  to{" "}
-                  <time dateTime={availability.end.iso}>
-                    {availability.end.label}
-                  </time>
-                </span>
-              </p>
-            ) : null}
-
-            {/* Secondary to the availability line: same row, muted, no accent.
-                Opens the PDF in a new tab rather than downloading it. */}
-            <a
-              href={site.cv}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[var(--muted)] transition-colors hover:text-[var(--ink)]"
-            >
-              View CV <span aria-hidden="true">(PDF)</span>
-            </a>
-          </div>
-
-          <hr className="rule" />
-        </div>
-      </section>
+      <Marquee text={site.headline} />
 
       <section className="shell page" aria-labelledby="featured-heading">
         <h2 id="featured-heading" className="sr-only">
